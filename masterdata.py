@@ -1,58 +1,68 @@
-import psycopg2
+import psycopg2 
+import sys 
 
-# 1. Konfigurasi Database PostgreSQL (Sesuaikan password DBeaver kamu)
+# 1. Konfigurasi Database PostgreSQL 
 db_config = {
     'host': 'localhost',
-    'database': 'postgres', # Nama database utama
+    'database': 'postgres', 
     'user': 'postgres',
     'password': '', 
-    'port': '5432'
+    'port': '5432' 
 }
 
 def check_database():
-    print("=== PROGRAM PENGECEKAN BARCODE ===")
+    print("================================================")
+    print("           SISTEM VALIDASI DATA                 ")
+    print("================================================")
     
-    while True:
-        # Input dari scanner
-        barcode_input = input("\nScan Barcode: ")
-        
-        if not barcode_input:
-            continue
-
-        try:
-            # 2. Koneksi ke PostgreSQL
-            conn = psycopg2.connect(**db_config)
-            cursor = conn.cursor()
-
-            # 3. Query mencari di tabel master_data (dalam schema latihan)
-            # cari berdasarkan kolom 'kode_sap'
-            query = "SELECT nama_rawmaterial, susunan_palet, merk_type FROM latihan.master_data WHERE kode_sap = %s"
-            cursor.execute(query, (barcode_input,))
+    try:
+        while True:
+            print("\n Menunggu Scan Barcode...")
             
-            result = cursor.fetchone()
-
-            # 4. Logika Validasi
-            if result:
-                nama, palet, merk = result
-                print("------------------------------------------")
-                print(f" KODE VALID!")
-                print(f" Nama Material : {nama}")
-                print(f" Merk Type     : {merk}")
-                print(f" Susunan Palet : {palet}")
-                print("------------------------------------------")
-            else:
-                print("------------------------------------------")
-                print(f" KODE TIDAK VALID: [{barcode_input}]")
-                print("Keterangan: Data tidak ditemukan di database.")
-                print("------------------------------------------")
-
+            # 2. Input Barcode
+            barcode_input = input("Scan Barcode : ").strip()
             
-            cursor.close()
-            conn.close()
+            if not barcode_input:
+                continue
 
-        except Exception as e:
-            print(f" Gagal terhubung ke database: {e}")
-            break
+            conn = None
+            try:
+                # 3. Koneksi ke Database
+                conn = psycopg2.connect(**db_config)
+                cursor = conn.cursor()
+
+                # 4. Query Master Data
+                query = "SELECT nama_rawmaterial, susunan_palet, merk_type FROM latihan.master_data WHERE kode_sap = %s"
+                cursor.execute(query, (barcode_input,))
+                
+                result = cursor.fetchone() 
+
+                # 5. Output Hasil
+                print("\n" + "="*40)
+                if result:
+                    nama, palet, merk = result
+                    print(f" STATUS   : KODE VALID")
+                    print(f" Material : {nama}")
+                    print(f" Merk     : {merk}")
+                    print(f" Palet    : {palet}") 
+                else:
+                    print(f" STATUS   : TIDAK VALID")
+                    print(f" Kode SAP : {barcode_input}")
+                    print(f" Info    : Data tidak ditemukan di database.")
+                print("="*40)
+
+            except psycopg2.Error as e:
+                print(f"\n DATABASE ERROR: {e}")
+            finally:
+                if conn:
+                    cursor.close()
+                    conn.close()
+            
+    except KeyboardInterrupt:
+        print("\n\n[INFO] Menutup aplikasi.")
+        sys.exit()
 
 if __name__ == "__main__":
-    check_database()
+    check_database() 
+
+apkliasi hujan hujnahujanhuajnhuajn

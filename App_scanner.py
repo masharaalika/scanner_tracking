@@ -7,7 +7,7 @@ from database import simpan_data, get_connection
 from history_window import HistoryWindow
 
 # Deteksi folder untuk gambar 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__)) 
 
 class AppScanner(ctk.CTk): 
     def __init__(self):
