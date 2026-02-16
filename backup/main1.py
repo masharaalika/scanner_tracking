@@ -19,7 +19,7 @@ DB_CONFIG = {
     "port": "5432"
 }
 
-class AppScanner(ctk.CTk):
+class AppScanner(ctk.CTk): 
     def __init__(self):
         super().__init__()
         self.title("Sistem Scanner Formulasi") #judul pada jendela aplikasi
@@ -45,7 +45,7 @@ class AppScanner(ctk.CTk):
             img_hist_header = Image.open("icon_history2.png")
             self.icon_header = ctk.CTkImage(light_image=img_hist_header, dark_image=img_hist_header, size=(20, 20))
         except:
-            self.icon_header = None
+            self.icon_header = None 
         
         try:
             img_file = Image.open("Logo2.png")
@@ -89,7 +89,7 @@ class AppScanner(ctk.CTk):
         self.entry_barcode.focus_set() #memastikan kursor aktif
 
         self.update_clock() 
-        self.load_sidebar_history()
+        self.load_sidebar_history() 
         self.loop_check() 
 
     def update_clock(self):

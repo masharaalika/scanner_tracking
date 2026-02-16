@@ -1,26 +1,26 @@
 import psycopg2 
-import sys 
+import sys
 
-# 1. Konfigurasi Database PostgreSQL 
+# 1. Konfigurasi Database PostgreSQL
 db_config = {
-    'host': 'localhost',
+    'host': 'localhost', 
     'database': 'postgres', 
     'user': 'postgres',
     'password': '', 
     'port': '5432' 
 }
 
-def check_database():
-    print("================================================")
-    print("           SISTEM VALIDASI DATA                 ")
-    print("================================================")
+def check_database(): 
+    print("================================================") 
+    print("           SISTEM VALIDASI DATA                 ") 
+    print("================================================")      
     
     try:
         while True:
             print("\n Menunggu Scan Barcode...")
             
             # 2. Input Barcode
-            barcode_input = input("Scan Barcode : ").strip()
+            barcode_input = input("Scan Barcode : ").strip() 
             
             if not barcode_input:
                 continue
@@ -28,7 +28,7 @@ def check_database():
             conn = None
             try:
                 # 3. Koneksi ke Database
-                conn = psycopg2.connect(**db_config)
+                conn = psycopg2.connect(**db_config) 
                 cursor = conn.cursor()
 
                 # 4. Query Master Data
@@ -44,11 +44,11 @@ def check_database():
                     print(f" STATUS   : KODE VALID")
                     print(f" Material : {nama}")
                     print(f" Merk     : {merk}")
-                    print(f" Palet    : {palet}") 
+                    print(f" Palet    : {palet}")
                 else:
                     print(f" STATUS   : TIDAK VALID")
                     print(f" Kode SAP : {barcode_input}")
-                    print(f" Info    : Data tidak ditemukan di database.")
+                    print(f" Info    : Data tidak ditemukan di database.") 
                 print("="*40)
 
             except psycopg2.Error as e:
