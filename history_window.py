@@ -7,7 +7,7 @@ from database import get_connection
 try:
     from tkcalendar import Calendar
 except ImportError:
-    Calendar = None
+    Calendar = None 
 
 class HistoryWindow(ctk.CTkToplevel):
     def __init__(self, parent):
@@ -77,7 +77,7 @@ class HistoryWindow(ctk.CTkToplevel):
         self.btn_next = ctk.CTkButton(self.pagination_frame, text=">", width=40, height=40, fg_color="#1e293b", command=self.next_page)
         self.btn_next.pack(side="left", padx=5)
         self.result_info = ctk.CTkLabel(self.pagination_frame, text="Results: 0", font=("Arial", 12), text_color="#94a3b8")
-        self.result_info.pack(side="right", padx=10)
+        self.result_info.pack(side="right", padx=10) 
 
     def setup_picker_ui(self):
         # SHIFT PANEL
@@ -115,7 +115,7 @@ class HistoryWindow(ctk.CTkToplevel):
         ctk.CTkButton(self.range_container, text="APPLY RANGE", fg_color="#10b981", text_color="black", font=("Arial", 12, "bold"), height=40, command=self.apply_range_filter).pack(pady=20)
 
     def toggle_shift_panel(self):
-        self.range_container.pack_forget(); self.range_panel.configure(height=0)
+        self.range_container.pack_forget(); self.range_panel.configure(height=0) 
         if self.shift_panel.winfo_height() < 10:
             self.shift_panel.configure(height=480); self.shift_container.pack(fill="both", expand=True)
         else:
