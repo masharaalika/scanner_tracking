@@ -11,7 +11,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 NODE_RED_URL = "http://127.0.0.1:1880/update_plc"
 
 class AppScanner(ctk.CTk):
-    def __init__(self):
+    def __init__(self): 
         super().__init__() 
         self.title("Sistem Scanner Formulasi") 
         self.geometry("1200x800") 
