@@ -12,7 +12,7 @@ db_config = {
 
 def check_database(): 
     print("================================================") 
-    print("           SISTEM VALIDASI DATA                 ") 
+    print("         SISTEM VALIDASI DATA BARCODE           ")
     print("================================================")      
     
     try:
